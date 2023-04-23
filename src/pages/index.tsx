@@ -1,6 +1,7 @@
 import { useDynamicContext } from '@dynamic-labs/sdk-react';
 import { useEffect, useState } from 'react';
 import apiLogin from '@/helpers/api/login';
+import Image from 'next/image';
 
 export default function Home() {
   const dynamicContext = useDynamicContext();
@@ -24,7 +25,13 @@ export default function Home() {
 
   const loadComponent = () => {
     if (!isAuthenticated) {
-      return <>welcome</>;
+      return (
+        <div className='flex-col text-sky-600 text-center'>
+          <Image src='/assets/img/welcome.svg' alt='Welcome image with a financial service graph' width={650} height={100}/>
+          <p className="text-2xl font-extrabold">Welcome to Vencura!</p>
+          <p className="text-xl font-bold">Your Safe and reliable financial service for web3 world.</p>
+        </div>
+      );
     }
 
     return <>logged - {dynamicContext.authToken}</>;
