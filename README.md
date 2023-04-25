@@ -51,3 +51,7 @@ It symply requires a login through a wallet, email or metamask account and a cus
 
 - since the objective is to handle custodial wallets on the backend, the front-end is a little bit funky
 
+
+![image](https://user-images.githubusercontent.com/8183000/234425146-bda5990f-3b23-46ca-8bc3-c6f5f946bb4d.png)
+
+
