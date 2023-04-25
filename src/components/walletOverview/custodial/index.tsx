@@ -1,6 +1,11 @@
 import SimpleDialog from '@/components/dialog';
+import TransactionHistory from '@/components/transactionHistory';
 import useWallet from '@/hooks/api/useWallet';
-import { Box, Button, Dialog, DialogTitle, Typography } from '@material-ui/core';
+import {
+  Box,
+  Button,
+  Typography,
+} from '@material-ui/core';
 import FileCopy from '@material-ui/icons/FileCopy';
 import { useEffect, useState } from 'react';
 
@@ -12,8 +17,10 @@ const CustodialWallets: React.FC = () => {
   const [walletInfo, { loading: isWalletLoading }] = useWallet.useUserWallet();
   const [signedMessage, { loading: signingMessage, signMessage }] =
     useWallet.useSignMessage();
-  const [transactionResult, { loading: requestingTransaction, send }] =
-    useWallet.useSendTransaction();
+  const [
+    transactionResult,
+    { loading: requestingTransaction, error: transactionError, send },
+  ] = useWallet.useSendTransaction();
 
   useEffect(() => {
     if (signedMessage) {
@@ -24,11 +31,15 @@ const CustodialWallets: React.FC = () => {
   }, [signedMessage]);
 
   useEffect(() => {
-    if (transactionResult && transactionResult.receipt ) {
+    if (transactionError) {
+      console.log(transactionError);
+    }
+
+    if (transactionResult && transactionResult.receipt) {
       setDialogTile('Transaction receipt');
       setDialogValue(transactionResult.receipt);
     }
-  }, [transactionResult]);
+  }, [transactionResult, transactionError]);
 
   const handleSignMessage = () => {
     if (signingMessage) {
@@ -42,12 +53,12 @@ const CustodialWallets: React.FC = () => {
       return;
     }
 
-    send(1, '0', '0x633DEA45D20E487aA50f13cC3A36904D1345776E');
+    send(1, '0', '0xa74A115fD250d0C3a58BaF795EF755770b7Ae68A');
   };
 
   const handleClose = () => {
     setOpen(false);
-  }
+  };
 
   const copyFullAddress = () => {
     navigator.clipboard.writeText(walletInfo?.address || '');
@@ -64,7 +75,11 @@ const CustodialWallets: React.FC = () => {
           <Typography component="h5">
             Balance: ETH {walletInfo?.balance}
           </Typography>
-          <div className="flex flex-row cursor-pointer" onClick={copyFullAddress} title="click to copy to clipboard">
+          <div
+            className="flex flex-row cursor-pointer"
+            onClick={copyFullAddress}
+            title="click to copy to clipboard"
+          >
             <Typography
               gutterBottom
               component="h6"
@@ -78,7 +93,7 @@ const CustodialWallets: React.FC = () => {
             >
               {walletInfo?.address}
             </Typography>
-            {walletInfo?.address && <FileCopy fontSize="inherit"/>}
+            {walletInfo?.address && <FileCopy fontSize="inherit" />}
           </div>
         </Box>
         <Button
@@ -98,7 +113,13 @@ const CustodialWallets: React.FC = () => {
           {'Send transaction '}
         </Button>
       </Box>
-      <SimpleDialog onClose={handleClose} open={open} value={dialogValue} title={dialogTitle}/>
+      <TransactionHistory/>
+      <SimpleDialog
+        onClose={handleClose}
+        open={open}
+        value={dialogValue}
+        title={dialogTitle}
+      />
     </Box>
   );
 };
