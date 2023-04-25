@@ -2,6 +2,7 @@ import { useDynamicContext } from '@dynamic-labs/sdk-react';
 import { useEffect, useState } from 'react';
 import apiLogin from '@/helpers/api/login';
 import Image from 'next/image';
+import WalletOverview from '@/components/walletOverview';
 
 export default function Home() {
   const dynamicContext = useDynamicContext();
@@ -21,7 +22,7 @@ export default function Home() {
     }
 
     handleLogin();
-  }, [dynamicContext, dynamicContext.isAuthenticated]);
+  }, [dynamicContext.isAuthenticated, dynamicContext.authToken]);
 
   const loadComponent = () => {
     if (!isAuthenticated) {
@@ -34,7 +35,11 @@ export default function Home() {
       );
     }
 
-    return <>logged - {dynamicContext.authToken}</>;
+    return (
+      <>
+        <WalletOverview/>
+      </>
+    );
   };
 
   return (
