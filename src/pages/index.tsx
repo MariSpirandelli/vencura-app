@@ -24,27 +24,28 @@ export default function Home() {
     handleLogin();
   }, [dynamicContext.isAuthenticated, dynamicContext.authToken]);
 
-  const loadComponent = () => {
-    if (!isAuthenticated) {
-      return (
-        <div className='flex-col text-sky-600 text-center'>
-          <Image src='/assets/img/welcome.svg' alt='Welcome image with a financial service graph' width={650} height={100}/>
-          <p className="text-2xl font-extrabold">Welcome to Vencura!</p>
-          <p className="text-xl font-bold">Your Safe and reliable financial service for web3 world.</p>
-        </div>
-      );
-    }
-
+  if (!isAuthenticated) {
     return (
-      <>
-        <WalletOverview/>
-      </>
+      <main className="container h-screen bg-white mx-auto my-8 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
+        <div className="flex-col text-sky-600 text-center">
+          <Image
+            src="/assets/img/welcome.svg"
+            alt="Welcome image with a financial service graph"
+            width={650}
+            height={100}
+          />
+          <p className="text-2xl font-extrabold">Welcome to Vencura!</p>
+          <p className="text-xl font-bold">
+            Your Safe and reliable financial service for web3 world.
+          </p>
+        </div>
+      </main>
     );
-  };
+  }
 
   return (
-    <main className="container h-screen bg-white mx-auto my-8 px-4 sm:px-6 lg:px-8 flex items-center justify-center">
-      {loadComponent()}
+    <main className="container h-screen my-8 bg-white mx-auto px-8 sm:px-6 lg:px-8 flex">
+      <WalletOverview />
     </main>
   );
 }
