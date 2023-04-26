@@ -1,6 +1,7 @@
 # Vencura
 
-Vencura is a safe and reliable financial service for multiple wallets, for users with all levels of web3 knowledge.
+Vencura is a safe and reliable financial management and budgeting app, for users with all levels of web3 knowledge.
+With Vencura you can create multiple wallets to represent different budget categories or accounts, such as one for groceries, one for entertainment, one for savings, etc. Each wallet would have its own balance and transaction history, allowing you to easily track your spending and manage your budget. You could also set up automated transfers between wallets, such as transferring a certain percentage of your income to your savings wallet each month.
 
 It was developed in React using [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
@@ -9,6 +10,8 @@ It was developed in React using [Next.js](https://nextjs.org/) project bootstrap
 - React
 - Typescript
 - Next
+- TailwindCSS
+- Material UI
 
 ## Getting Started
 
@@ -51,7 +54,7 @@ It symply requires a login through a wallet, email or metamask account and a cus
 
 - since the objective is to handle custodial wallets on the backend, the front-end is a little bit funky
 
-![image](https://user-images.githubusercontent.com/8183000/234425411-df54abe3-580e-44a9-bb7d-862f4c6f5ddd.png)
+![localhost_3001](https://user-images.githubusercontent.com/8183000/234710904-e8af4953-49da-4bbe-8778-3cf813faac8c.png)
 
 
 
