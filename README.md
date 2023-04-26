@@ -52,7 +52,7 @@ It symply requires a login through a wallet, email or metamask account and a cus
 
 ## Notes
 
-- since the objective is to handle custodial wallets on the backend, the front-end is a little bit funky
+- since the objective is to handle custodial wallets on the backend, the front-end is a little bit funky and transfer amount is fixed into '0.000000001' due to time constraints to add all necessary validations.
 
 ![localhost_3001](https://user-images.githubusercontent.com/8183000/234710904-e8af4953-49da-4bbe-8778-3cf813faac8c.png)
 
