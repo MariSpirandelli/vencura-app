@@ -1,26 +1,28 @@
 import SimpleDialog from '@/components/dialog';
 import TransactionHistory from '@/components/transactionHistory';
 import useWallet from '@/hooks/api/useWallet';
-import {
-  Box,
-  Button,
-  Typography,
-} from '@material-ui/core';
+import { Box, Button, TextField, Typography } from '@material-ui/core';
 import FileCopy from '@material-ui/icons/FileCopy';
 import { useEffect, useState } from 'react';
 
 const CustodialWallets: React.FC = () => {
+  // transanction and sign result dialog controls
   const [open, setOpen] = useState(false);
   const [dialogValue, setDialogValue] = useState<string>('');
   const [dialogTitle, setDialogTile] = useState<string>('');
 
+  // wallet info
   const [walletInfo, { loading: isWalletLoading }] = useWallet.useUserWallet();
+
+  // sign and request transaction
   const [signedMessage, { loading: signingMessage, signMessage }] =
     useWallet.useSignMessage();
   const [
     transactionResult,
     { loading: requestingTransaction, error: transactionError, send },
   ] = useWallet.useSendTransaction();
+
+  const [value, setValue] = useState<string>();
 
   useEffect(() => {
     if (signedMessage) {
@@ -42,18 +44,18 @@ const CustodialWallets: React.FC = () => {
   }, [transactionResult, transactionError]);
 
   const handleSignMessage = () => {
-    if (signingMessage) {
+    if (signingMessage || !value) {
       return;
     }
-    signMessage('Hello World');
+    signMessage(value);
   };
 
   const handleSendTransaction = () => {
-    if (requestingTransaction) {
+    if (requestingTransaction || !value || !walletInfo) {
       return;
     }
 
-    send(1, '0', '0xa74A115fD250d0C3a58BaF795EF755770b7Ae68A');
+    send(walletInfo?.id, '0.000000001', value);
   };
 
   const handleClose = () => {
@@ -96,24 +98,39 @@ const CustodialWallets: React.FC = () => {
             {walletInfo?.address && <FileCopy fontSize="inherit" />}
           </div>
         </Box>
-        <Button
-          role="button"
-          variant="outlined"
-          color="primary"
-          onClick={handleSignMessage}
-        >
-          {'Sign Message '}
-        </Button>
-        <Button
-          role="button"
-          variant="outlined"
-          color="primary"
-          onClick={handleSendTransaction}
-        >
-          {'Send transaction '}
-        </Button>
+        <Box className="flex flex-col justify-between">
+          <div>
+            <TextField
+              id="outlined-basic"
+              label="message/ address"
+              variant="outlined"
+              value={value}
+              className="w-full"
+              size="small"
+              onChange={(e) => setValue(e.target.value)}
+            />
+          </div>
+          <div>
+            <Button
+              role="button"
+              variant="outlined"
+              color="primary"
+              onClick={handleSignMessage}
+            >
+              {'Sign Message '}
+            </Button>
+            <Button
+              role="button"
+              variant="outlined"
+              color="primary"
+              onClick={handleSendTransaction}
+            >
+              {'Send transaction '}
+            </Button>
+          </div>
+        </Box>
       </Box>
-      <TransactionHistory/>
+      <TransactionHistory />
       <SimpleDialog
         onClose={handleClose}
         open={open}
