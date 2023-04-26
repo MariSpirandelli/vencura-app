@@ -55,7 +55,7 @@ const CustodialWallets: React.FC = () => {
       return;
     }
 
-    send(walletInfo?.id, '0.000000001', value);
+    send(walletInfo?.id, '0.0000000000001', value);
   };
 
   const handleClose = () => {
@@ -104,7 +104,6 @@ const CustodialWallets: React.FC = () => {
               id="outlined-basic"
               label="message/ address"
               variant="outlined"
-              value={value}
               className="w-full"
               size="small"
               onChange={(e) => setValue(e.target.value)}
