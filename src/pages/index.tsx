@@ -11,7 +11,7 @@ export default function Home() {
 
   useEffect(() => {
     if (!dynamicContext.isAuthenticated) {
-      return;
+      setIsAuthenticated(false);
     }
     setIsAuthenticated(dynamicContext.isAuthenticated);
     async function handleLogin(): Promise<void> {
