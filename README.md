@@ -1,4 +1,4 @@
-# Vencura
+# Vencura [<img src=https://badgen.net/badge/vencura-app/up/green>](https://vencura-app.vercel.app/)
 
 Vencura is a safe and reliable financial management and budgeting app, for users with all levels of web3 knowledge.
 With Vencura you can create multiple wallets to represent different budget categories or accounts, such as one for groceries, one for entertainment, one for savings, etc. Each wallet would have its own balance and transaction history, allowing you to easily track your spending and manage your budget. You could also set up automated transfers between wallets, such as transferring a certain percentage of your income to your savings wallet each month.
