@@ -13,10 +13,12 @@ const dynamic = {
 }
 
 const environment = process.env.NODE_ENV;
+const etherscan = process.env.NEXT_PUBLIC_APP_ETHERSCAN || 'https://sepolia.etherscan.io/tx'
 
 export default {
   api,
   app,
   dynamic,
   environment,
+  etherscan
 };

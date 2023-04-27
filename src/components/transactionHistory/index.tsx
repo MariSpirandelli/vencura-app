@@ -1,3 +1,4 @@
+import config from '@/config';
 import useTransaction from '@/hooks/api/useTransaction';
 import {
   Paper,
@@ -11,9 +12,16 @@ import {
 } from '@material-ui/core';
 import { History } from '@material-ui/icons';
 
-
 const TransactionHistory: React.FC = () => {
   const [transactions, { loading, error }] = useTransaction();
+
+  const handleRowClick = (transactionHash?: string) => {
+    if (!transactionHash) {
+      return;
+    }
+    const fullLink = `${config.etherscan}/${transactionHash}`;
+    window.open(fullLink, '_blank');
+  };
 
   return (
     <div className="my-6">
@@ -33,16 +41,22 @@ const TransactionHistory: React.FC = () => {
             {!transactions?.length ? (
               <TableRow key={`transaction_empty`}>
                 <TableCell component="th" scope="row" rowSpan={2}>
-                  {loading? 'loading': 'No transaction found'}
+                  {loading ? 'loading' : 'No transaction found'}
                 </TableCell>
               </TableRow>
             ) : (
               transactions?.map((transaction, i) => (
-                <TableRow key={`transaction_${i}`}>
+                <TableRow
+                  key={`transaction_${i}`}
+                  className={transaction?.receipt ? 'cursor-pointer' : ''}
+                  onClick={() => handleRowClick(transaction.receipt)}
+                >
                   <TableCell component="th" scope="row">
                     {transaction.toWalletAddress}
                   </TableCell>
-                  <TableCell align="right">{transaction.status}</TableCell>
+                  <TableCell align="right" title={transaction.failReason}>
+                    {transaction.status}
+                  </TableCell>
                 </TableRow>
               ))
             )}
